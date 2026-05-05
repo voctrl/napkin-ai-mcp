@@ -146,6 +146,29 @@ describe("NapkinClient", () => {
       expect(result.status).toBe("failed");
       expect(result.error).toBe("Content too short");
     });
+
+    it("should expose credits when present in response", async () => {
+      const mockStatus = {
+        id: "req-123",
+        status: "completed",
+        generated_files: [
+          {
+            url: "https://api.napkin.ai/files/file-1.svg",
+            visual_id: "vis-1",
+          },
+        ],
+        credits: { consumed: 10 },
+      };
+
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve(mockStatus),
+      });
+
+      const result = await client.getStatus("req-123");
+
+      expect(result.credits).toEqual({ consumed: 10 });
+    });
   });
 
   describe("downloadFile", () => {

@@ -180,6 +180,16 @@ export const GeneratedFileSchema = z.object({
 export type GeneratedFile = z.infer<typeof GeneratedFileSchema>;
 
 /**
+ * Credit consumption information returned by the API.
+ */
+export const CreditsSchema = z.object({
+  /** Number of credits consumed by the request. */
+  consumed: z.number(),
+});
+
+export type Credits = z.infer<typeof CreditsSchema>;
+
+/**
  * Response from checking visual generation status.
  */
 export const VisualStatusResponseSchema = z.object({
@@ -197,6 +207,9 @@ export const VisualStatusResponseSchema = z.object({
 
   /** Error message if failed. */
   error: z.string().optional(),
+
+  /** Credit consumption information for the request. */
+  credits: CreditsSchema.optional(),
 });
 
 export type VisualStatusResponse = z.infer<typeof VisualStatusResponseSchema>;

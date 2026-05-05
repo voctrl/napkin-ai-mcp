@@ -215,6 +215,10 @@ export function createNapkinMcpServer(config: NapkinMcpServerConfig): McpServer 
           .optional()
           .describe("Generated files when completed"),
         error: z.string().optional().describe("Error message if failed"),
+        credits: z
+          .object({ consumed: z.number() })
+          .optional()
+          .describe("Credit consumption for the request"),
       },
     },
     async ({ request_id }) => {
@@ -227,6 +231,7 @@ export function createNapkinMcpServer(config: NapkinMcpServerConfig): McpServer 
         status: status.status,
         generated_files: status.generated_files,
         error: status.error,
+        credits: status.credits,
       };
 
       return {
@@ -289,6 +294,10 @@ export function createNapkinMcpServer(config: NapkinMcpServerConfig): McpServer 
             })
           )
           .describe("Generated files with download URLs"),
+        credits: z
+          .object({ consumed: z.number() })
+          .optional()
+          .describe("Credit consumption for the request"),
       },
     },
     async (input) => {
@@ -336,6 +345,7 @@ export function createNapkinMcpServer(config: NapkinMcpServerConfig): McpServer 
         id: status.id,
         status: status.status,
         generated_files: status.generated_files,
+        credits: status.credits,
       };
 
       return {
@@ -370,6 +380,10 @@ export function createNapkinMcpServer(config: NapkinMcpServerConfig): McpServer 
             })
           )
           .describe("Saved files with storage locations"),
+        credits: z
+          .object({ consumed: z.number() })
+          .optional()
+          .describe("Credit consumption for the request"),
       },
     },
     async (input) => {
@@ -460,6 +474,7 @@ export function createNapkinMcpServer(config: NapkinMcpServerConfig): McpServer 
       const output: Record<string, unknown> = {
         request_id: status.id,
         files: savedFiles,
+        credits: status.credits,
       };
 
       if (isLocalStorage) {
