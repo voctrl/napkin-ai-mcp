@@ -475,7 +475,7 @@ Create a `config.json` file:
 | `height`                 | number   | Height in pixels (PNG only, 100-10000)                                      |
 | `orientation`            | string   | `auto`, `horizontal`, `vertical`, or `square`                               |
 | `text_extraction_mode`   | string   | `auto`, `rewrite`, or `preserve` (default: `auto`)                          |
-| `sort_strategy`          | string   | `relevance` or `random` (default: `relevance`)                              |
+| `sort_strategy`          | string   | `relevance`, `random`, or `variation` (default: `relevance`)                |
 
 **Note**: `visual_id`/`visual_ids` and `visual_query`/`visual_queries` are mutually exclusive.
 

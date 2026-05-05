@@ -117,7 +117,9 @@ export function createNapkinMcpServer(config: NapkinMcpServerConfig): McpServer 
     text_extraction_mode: TextExtractionModeSchema.optional().describe(
       "Text extraction: auto, rewrite, or preserve"
     ),
-    sort_strategy: SortStrategySchema.optional().describe("Sort strategy: relevance or random"),
+    sort_strategy: SortStrategySchema.optional().describe(
+      "Sort strategy: relevance, random, or variation"
+    ),
   };
 
   server.registerTool(

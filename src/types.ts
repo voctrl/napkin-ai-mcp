@@ -34,8 +34,9 @@ export type TextExtractionMode = z.infer<typeof TextExtractionModeSchema>;
  * Strategy for sorting visual layouts when multiple options are available.
  * - relevance: Sort by relevance to the content (default)
  * - random: Randomise the order of visual layouts
+ * - variation: Increase variety in visual layout results (added in API v1.1.4)
  */
-export const SortStrategySchema = z.enum(["relevance", "random"]);
+export const SortStrategySchema = z.enum(["relevance", "random", "variation"]);
 export type SortStrategy = z.infer<typeof SortStrategySchema>;
 
 /**
