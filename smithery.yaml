@@ -1,0 +1,34 @@
+runtime: "typescript"
+startCommand:
+  type: "stdio"
+  configSchema:
+    type: "object"
+    required:
+      - napkinApiKey
+    properties:
+      napkinApiKey:
+        type: "string"
+        title: "Napkin AI API Key"
+        description: "Your Napkin AI API key from https://app.napkin.ai"
+      napkinApiBaseUrl:
+        type: "string"
+        title: "API Base URL"
+        description: "Custom Napkin AI API base URL (leave empty to use default)"
+      pollingInterval:
+        type: "integer"
+        title: "Polling Interval (ms)"
+        description: "How often to check generation status in milliseconds"
+        default: 2000
+        minimum: 500
+        maximum: 30000
+      maxWaitTime:
+        type: "integer"
+        title: "Max Wait Time (ms)"
+        description: "Maximum time to wait for visual generation in milliseconds"
+        default: 300000
+        minimum: 10000
+        maximum: 600000
+  exampleConfig:
+    napkinApiKey: "your-napkin-api-key"
+    pollingInterval: 2000
+    maxWaitTime: 300000

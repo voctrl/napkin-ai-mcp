@@ -3,6 +3,7 @@
   "version": "0.2.0",
   "description": "MCP server for Napkin AI visual generation API with multi-storage support",
   "type": "module",
+  "module": "./src/smithery.ts",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
