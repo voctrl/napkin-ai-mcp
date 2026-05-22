@@ -102,8 +102,9 @@ export class S3StorageProvider implements StorageProvider {
 
     await this.client.send(command);
 
-    const publicUrl = this.config.endpoint
-      ? `${this.config.endpoint}/${this.config.bucket}/${key}`
+    const endpoint = this.config.endpoint?.replace(/\/+$/, "");
+    const publicUrl = endpoint
+      ? `${endpoint}/${this.config.bucket}/${key}`
       : `https://${this.config.bucket}.s3.${this.config.region}.amazonaws.com/${key}`;
 
     return {

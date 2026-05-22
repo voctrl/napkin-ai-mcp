@@ -375,8 +375,11 @@ export function createNapkinMcpServer(config: NapkinMcpServerConfig): McpServer 
           .array(
             z.object({
               visual_id: z.string(),
-              storage_location: z.string(),
-              public_url: z.string().optional(),
+              url: z
+                .string()
+                .describe("Full URL to the saved file (HTTP URL including S3 endpoint)"),
+              storage_location: z.string().describe("Storage URI (e.g. s3://bucket/key)"),
+              public_url: z.string().optional().describe("Full HTTP URL to the saved file"),
             })
           )
           .describe("Saved files with storage locations"),
@@ -464,6 +467,7 @@ export function createNapkinMcpServer(config: NapkinMcpServerConfig): McpServer 
 
           return {
             visual_id: file.visual_id,
+            url: result.publicUrl ?? result.location,
             storage_location: result.location,
             public_url: result.publicUrl,
           };
