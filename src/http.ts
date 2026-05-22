@@ -24,30 +24,25 @@ async function handleMcp(req: IncomingMessage, res: ServerResponse): Promise<voi
   const sessionId = req.headers["mcp-session-id"] as string | undefined;
 
   if (sessionId && sessions.has(sessionId)) {
-    const transport = sessions.get(sessionId)!;
-    await transport.handleRequest(req, res);
+    await sessions.get(sessionId)!.handleRequest(req, res);
     return;
   }
 
   const transport = new StreamableHTTPServerTransport({
     sessionIdGenerator: () => randomUUID(),
-    onsessioninitialized: (id) => {
-      sessions.set(id, transport);
-    },
   });
 
-  transport.onclose = () => {
-    const id = (transport as unknown as { _sessionId?: string })._sessionId;
-    if (id) sessions.delete(id);
-  };
-
   res.on("close", () => {
-    if (!res.writableEnded) transport.close();
+    if (transport.sessionId) sessions.delete(transport.sessionId);
   });
 
   const mcpServer = createNapkinMcpServer(serverConfig);
   await mcpServer.connect(transport);
   await transport.handleRequest(req, res);
+
+  if (transport.sessionId) {
+    sessions.set(transport.sessionId, transport);
+  }
 }
 
 const httpServer = createServer(async (req, res) => {
