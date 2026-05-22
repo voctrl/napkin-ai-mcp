@@ -35,6 +35,13 @@ export const configSchema = z.object({
     .describe("Custom endpoint for S3-compatible storage (e.g. Cloudflare R2, MinIO)"),
   awsAccessKeyId: z.string().optional().describe("AWS access key ID for S3 authentication"),
   awsSecretAccessKey: z.string().optional().describe("AWS secret access key for S3 authentication"),
+  s3ForcePathStyle: z
+    .boolean()
+    .optional()
+    .default(false)
+    .describe(
+      "Force path-style URLs — required for Cloudflare R2, MinIO, and other S3-compatible services"
+    ),
 });
 
 export default function ({
@@ -53,6 +60,7 @@ export default function ({
       endpoint: config.s3Endpoint,
       accessKeyId: config.awsAccessKeyId,
       secretAccessKey: config.awsSecretAccessKey,
+      forcePathStyle: config.s3ForcePathStyle,
     };
   }
 

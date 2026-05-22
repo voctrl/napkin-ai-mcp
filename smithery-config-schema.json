@@ -57,6 +57,12 @@
       "type": "string",
       "title": "AWS Secret Access Key",
       "description": "AWS secret access key for S3 authentication"
+    },
+    "s3ForcePathStyle": {
+      "type": "boolean",
+      "title": "S3 Force Path Style",
+      "description": "Force path-style URLs (required for Cloudflare R2, MinIO, and other S3-compatible services)",
+      "default": false
     }
   }
 }
